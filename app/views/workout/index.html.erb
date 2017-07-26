@@ -1,0 +1,23 @@
+<h1>Get The Right Workout!</h1>
+
+
+<%= form_tag(workout_results_path, method: "get") do %>
+
+<div class="form-group">
+	<label> What did you workout 2 days ago?</label><br>
+	<%= select_tag(:workout_2, options_for_select(@muscle_groups), {prompt: 'Select Muscle Group'})%>
+</div>
+
+<div class="form-group">
+	<label> What did you workout yesterday?</label><br>
+	<%= select_tag(:workout_1, options_for_select(@muscle_groups), {prompt: 'Select Muscle Group'})%>
+</div>
+
+<div class="form-group">
+	<label> What type of workout do you want to do?</label><br>
+	<%= select_tag(:type_opt, options_for_select([["Muscle Building", 1], ["HIIT(High Intensity Interval Training", 2]]),{prompt: 'Select Type of Workout'})%>
+</div>
+
+<%= submit_tag("Create Workout") %>
+<% end %>
+
