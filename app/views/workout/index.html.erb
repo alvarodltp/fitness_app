@@ -1,3 +1,5 @@
+<div class="jumbotron" class="container">
+
 <h1>Get The Right Workout!</h1>
 
 
@@ -5,12 +7,12 @@
 
 <div class="form-group">
 	<label> What did you workout 2 days ago?</label><br>
-	<%= select_tag(:workout_2, options_for_select(@muscle_groups), {prompt: 'Select Muscle Group'})%>
+	<%= select_tag(:workout_2, options_for_select(@dropdown_options), {prompt: 'Select Muscle Group'})%>
 </div>
 
 <div class="form-group">
 	<label> What did you workout yesterday?</label><br>
-	<%= select_tag(:workout_1, options_for_select(@muscle_groups), {prompt: 'Select Muscle Group'})%>
+	<%= select_tag(:workout_1, options_for_select(@dropdown_options), {prompt: 'Select Muscle Group'})%>
 </div>
 
 <div class="form-group">
@@ -20,4 +22,6 @@
 
 <%= submit_tag("Create Workout") %>
 <% end %>
+</div>
+
 

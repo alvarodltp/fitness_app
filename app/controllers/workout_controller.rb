@@ -1,35 +1,64 @@
 class WorkoutController < ApplicationController
   def index
-  	@muscle_groups = [
-  	["Chest & Triceps", 1], 
-  	["Back & Biceps", 2], 
-  	["Chest & Back", 3],
-  	["Shoulders & Abs", 4],
-  	["Chest", 5], 
-  	["Back", 6],
-  	["Arms", 7], 
-  	["Shoulders", 8], 
-  	["Abs", 9],
-  	["Legs", 10],
-  	["Full Body", 11],
-  ]
+  	@dropdown_options = [
+	  	["Chest & Triceps", :chest_triceps], 
+	  	["Back & Biceps", :back_biceps], 
+	  	["Chest & Back", :chest_back],
+	  	["Shoulders & Abs", :shoulders_abs],
+	  	["Chest", :chest], 
+	  	["Back", :back],
+	  	["Arms", :arms], 
+	  	["Shoulders", :shoulders], 
+	  	["Abs", :abs],
+	  	["Legs", :legs],
+	  	["Full Body", :full_body],
+	]
   end
 
   def results
-  	@lookup = {
-  		'Chest & Triceps': ['Chest', 'Shoulders', 'Triceps']
-  		'Back & Biceps' : ['Back', 'Biceps']
-  		'Chest & Back' : ['Chest', 'Back', 'Shoulders']
-  		'Shoulders & Abs' : ['Shoulders', 'Abs', 'Chest']
-  		'Chest' : ['Chest', 'Shoulders']
-  		'Back' : ['Back']
-  		'Arms' : ['Triceps', 'Chest', 'Biceps', 'Back']
-  		'Shoulders' : ['Shoulders', 'Chest']
-  		'Abs' : ['Abs']
-  		'Legs' : ['Legs']
-  		'Full Body' : ['Full Body']
+
+  	exclusions = {
+  		chest_triceps: ['Chest', 'Shoulders', 'Triceps'],
+  		back_biceps: ['Back', 'Biceps'],
+  		chest_back: ['Chest', 'Back', 'Shoulders'],
+  		shoulders_abs: ['Shoulders', 'Abs', 'Chest'],
+  		chest: ['Chest', 'Shoulders'],
+  		back: ['Back'],
+  		arms: ['Triceps', 'Chest', 'Biceps', 'Back'],
+  		shoulders: ['Shoulders', 'Chest'],
+  		abs: ['Abs'],
+  		legs: ['Legs'],
+  		full_body: ['Full Body'],
   	}
 
-  	
+  	workouts = {
+  		chest_triceps: ['Chest', 'Triceps'],
+  		back_biceps: ['Back', 'Biceps'],
+  		chest_back: ['Chest', 'Back'],
+  		shoulders_abs: ['Shoulders', 'Abs'],
+  		chest: ['Chest'],
+  		back: ['Back'],
+  		arms: ['Triceps', 'Biceps'],
+  		shoulders: ['Shoulders'],
+  		abs: ['Abs'],
+  		legs: ['Legs'],
+  		full_body: ['Full Body'],
+  	}
+  
+
+	exclude_muscle_groups = exclusions[params[:workout_1].to_sym] | exclusions[params[:workout_2].to_sym]
+
+	resulting_workouts =[]
+
+	workouts.each do |workout, groups|
+		if (groups & exclude_muscle_groups).empty?
+			resulting_workouts.push(workout)
+		end
+	end
+
+	workout = resulting_workouts.sample
+	muscle_groups = workouts[workout]
+
+	@exercises = Exercise.where(muscle_group: muscle_groups).order('RANDOM()').limit(6)
   end
 end

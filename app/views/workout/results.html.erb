@@ -1,2 +1,12 @@
-<h1>Workout#results</h1>
-<p>Find me in app/views/workout/results.html.erb</p>
+
+<div class="jumbotron" class="container">
+
+<h1>Enjoy Your Workout!</h1>
+
+<% @exercises.each do |exercise| %>
+<li><%=exercise.name%></li>
+
+<% end %>
+</div>
+
+
