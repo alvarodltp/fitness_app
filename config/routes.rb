@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations => "registrations" }
+
   root 'workout#index'
+
+  get 'workout/options'
 
   get 'workout/results'
 

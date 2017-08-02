@@ -1,0 +1,11 @@
+
+<div class="jumbotron" class="container">
+
+<h3>These are the muscle groups you can workout today!</h1>
+<label>Choose one</label>
+
+<% @resulting_workouts.each do |workout| %>
+<li><%=@workout_names[workout]%></li> 
+
+<% end %>
+</div>
