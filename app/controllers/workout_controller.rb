@@ -1,6 +1,8 @@
 class WorkoutController < ApplicationController
+  before_action :set_workouts
 
-   workouts = {
+  def set_workouts
+   @workouts = {
       chest_triceps: ['Chest', 'Triceps'],
       back_biceps: ['Back', 'Biceps'],
       chest_back: ['Chest', 'Back'],
@@ -13,6 +15,22 @@ class WorkoutController < ApplicationController
       legs: ['Legs'],
       full_body: ['Full Body'],
     }
+
+
+    @workout_names = {
+      chest_triceps: "Chest & Triceps",
+      back_biceps: "Back & Biceps",
+      chest_back: "Chest & Back",
+      shoulders_abs: "Shoulders & Abs",
+      chest: "Chest",
+      back: "Back",
+      arms: "Biceps & Triceps",
+      shoulders: "Shoulders",
+      abs: "Abs",
+      legs: "Legs",
+      full_body: "Full Body",
+    }
+  end
 
   def index
   	@dropdown_options = [
@@ -46,43 +64,28 @@ class WorkoutController < ApplicationController
       full_body: ['Full Body'],
     }
 
+    exclude_muscle_groups = exclusions[params[:workout_1].to_sym] | exclusions[params[:workout_2].to_sym]
 
-    @workout_names = {
-      chest_triceps: "Chest & Triceps",
-      back_biceps: "Back & Biceps",
-      chest_back: "Chest & Back",
-      shoulders_abs: "Shoulders & Abs",
-      chest: "Chest",
-      back: "Back",
-      arms: "Biceps & Triceps",
-      shoulders: "Shoulders",
-      abs: "Abs",
-      legs: "Legs",
-      full_body: "Full Body",
-    }
+    @resulting_workouts =[]
 
-  exclude_muscle_groups = exclusions[params[:workout_1].to_sym] | exclusions[params[:workout_2].to_sym]
-
-  @resulting_workouts =[]
-
-  workouts.each do |workout, groups|
-    if (groups & exclude_muscle_groups).empty?
-      @resulting_workouts.push(workout)
+    @workouts.each do |workout, groups|
+      if (groups & exclude_muscle_groups).empty?
+        @resulting_workouts.push(workout)
+      end
     end
   end
 
 
-  end
-
   def results
+    workout = params[:workout].to_sym
 
-	workout = resulting_workouts.sample
-	muscle_groups = workouts[workout]
+  	muscle_groups = @workouts[workout]
 
-  @workout_name = workout_names[workout]
+    @workout_name = @workout_names[workout]
+    
 
     if workout == :full_body
-    @exercises = Exercise.all.order('RANDOM()').limit(8)
+     @exercises = Exercise.all.order('RANDOM()').limit(8)
   
     else
 	   @exercises = Exercise.where(muscle_group: muscle_groups).order('RANDOM()').limit(6)

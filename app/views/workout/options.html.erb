@@ -5,7 +5,7 @@
 <label>Choose one</label>
 
 <% @resulting_workouts.each do |workout| %>
-<li><%=@workout_names[workout]%></li> 
+<li><%=link_to @workout_names[workout], results_path(workout) %></li> 
 
 <% end %>
 </div>

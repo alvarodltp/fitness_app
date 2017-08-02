@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   get 'workout/options'
 
-  get 'workout/results'
+  get 'workout/results/:workout' => 'workout#results', :as => "results"
 
   get 'workout_controller/index'
 
