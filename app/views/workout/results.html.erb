@@ -1,12 +1,29 @@
 
 <div class="jumbotron" class="container">
 
-<h2>Enjoy Your Workout!</h2>
+<h2>Here you go! Let's kill it!</h2>
 
-<% @exercises.each do |exercise| %>
-<li><%=exercise.name%></li>
+<table style="width:100%">
+  <tr>
+    <th>Exercise</th>
+    <th>Sets</th> 
+    <th>Reps</th>
+    <th>Weight</th>
+    <th>Rest Time</th>
+    <th>Notes</th>
+  </tr>
+  <% @exercises.each do |exercise| %>
+  <tr>
+    <td><%=exercise.name%></td>
+    <td>3</td> 
+    <td>8-15</td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <% end %>
+</table>
 
-<% end %>
 </div>
 
 

@@ -1,8 +1,8 @@
 
 <div class="jumbotron" class="container">
 
-<h3>These are the muscle groups you can workout today!</h1>
-<label>Choose one</label>
+<h3>Great! Now let's take a look at the muscle groups you can workout today.</h3>
+<label>Which one do you feel like doing?</label>
 
 <% @resulting_workouts.each do |workout| %>
 <li><%=link_to @workout_names[workout], results_path(workout) %></li> 

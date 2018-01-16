@@ -34,6 +34,7 @@ class WorkoutController < ApplicationController
 
   def index
   	@dropdown_options = [
+      ["I didn't workout", :no_workout],
 	  	["Chest & Triceps", :chest_triceps], 
 	  	["Back & Biceps", :back_biceps], 
 	  	["Chest & Back", :chest_back],
@@ -51,9 +52,10 @@ class WorkoutController < ApplicationController
   def options
 
     exclusions = {
-      chest_triceps: ['Chest', 'Shoulders', 'Triceps'],
+      no_workout: [],
+      chest_triceps: ['Chest', 'Triceps'],
       back_biceps: ['Back', 'Biceps'],
-      chest_back: ['Chest', 'Back', 'Shoulders'],
+      chest_back: ['Chest', 'Back'],
       shoulders_abs: ['Shoulders', 'Abs', 'Chest'],
       chest: ['Chest', 'Shoulders'],
       back: ['Back'],
@@ -88,7 +90,7 @@ class WorkoutController < ApplicationController
      @exercises = Exercise.all.order('RANDOM()').limit(8)
   
     else
-	   @exercises = Exercise.where(muscle_group: muscle_groups).order('RANDOM()').limit(6)
+	   @exercises = Exercise.where(muscle_group: muscle_groups, high_intensity: false).order('RANDOM()').limit(6)
 
     end
   end

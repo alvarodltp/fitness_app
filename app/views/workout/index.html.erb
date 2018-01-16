@@ -1,6 +1,7 @@
-<div class="jumbotron" class="container">
+<div class="jumbotron" class="container">ç
 
-<h2>Get The Right Workout!</h2>
+<h2>Welcome, <%= current_user.email %>!</h2>
+  <p>Let me build you the perfect workout according to the body parts you worked the last two days.</p>
 
 
 <%= form_tag(workout_options_path, method: "get") do %>
@@ -16,11 +17,11 @@
 </div>
 
 <div class="form-group">
-	<label> What type of workout do you want to do?</label><br>
+	<label> What are you feeling like doing today?</label><br>
 	<%= select_tag(:type_opt, options_for_select([["Muscle Building", 1], ["HIIT(High Intensity Interval Training", 2]]),{prompt: 'Select Type of Workout'})%>
 </div>
 
-<%= submit_tag("Create Workout") %>
+<%= submit_tag("Check Results") %>
 <% end %>
 </div>
 
