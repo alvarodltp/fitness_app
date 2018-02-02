@@ -1,5 +1,5 @@
 
-<div class="jumbotron" class="container">
+<div class="container">
 
 <h2>Time to put in the work!</h2>
 
@@ -12,17 +12,22 @@
     <th>Rest Time</th>
     <th>Notes</th>
   </tr>
+
   <% @exercises.each do |exercise| %>
+
   <tr>
-    <td><%=exercise.name%></td>
+    <th><%= exercise.name %></th>
     <td>3</td> 
     <td>8-15</td>
     <td></td>
-    <td></td>
+    <td>90 sec</td>
     <td></td>
   </tr>
   <% end %>
+
 </table>
+
+
 
 </div>
 
